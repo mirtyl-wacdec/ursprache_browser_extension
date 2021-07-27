@@ -19,4 +19,4 @@ Once its installed:
 1. Click on the crow icon.
 2. Enter the URL of your Ursprache instance.
 
-And you should be set
+And you should be set!
