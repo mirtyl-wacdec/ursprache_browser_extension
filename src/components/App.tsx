@@ -11,7 +11,7 @@ import Form from "./Form"
 
 const App = () => {
 
-  const [url, setUrl] = useState('http://localhost:4001');
+  const [url, setUrl] = useState('http://localhost:4000');
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
   let content;
@@ -76,7 +76,7 @@ const App = () => {
         <header className="App-header">
           <img src="clipart2177986.png" className="App-logo" alt="logo" />
           <h1>
-            Ursprache Help
+            Ursprache Helper
           </h1>
           {content}
           </header>

@@ -1,29 +1,22 @@
-# Chrome Extension boilerplate created with React Typescript
+# Ursprache Helper Browser Extension
 
-## Getting started
+## What it does
 
-Create a project based on this boilerplate.
+It hijacks all Twitter links from your browser and opens them inside your Ursprache instance.
 
-```
-$ npx degit https://github.com/sivertschou/react-typescript-chrome-extension-boilerplate.git#christmas <project-name>
-```
+## How to use
 
-Navigate to the project directory and install the dependencies.
+Clone or download this repo.
 
-```
-$ npm install
-```
+1. Build: `npm run build`
+2. Open your browser.
+3. Navigate your extensions page, e.g. `brave://extensions`.
+4. Enable _Developer mode_.
+5. Click _Load unpacked_.
+6. Select the `dist` directory.
 
-To build the extension, and rebuild it when the files are changed, run
+Once its installed:
+1. Click on the crow icon.
+2. Enter the URL of your Ursprache instance.
 
-```
-$ npm start
-```
-
-After the project has been built, a directory named `dist` has been created. You have to add this directory to your Chrome browser:
-
-1. Open Chrome.
-2. Navigate to `chrome://extensions`.
-3. Enable _Developer mode_.
-4. Click _Load unpacked_.
-5. Select the `dist` directory.
+And you should be set
