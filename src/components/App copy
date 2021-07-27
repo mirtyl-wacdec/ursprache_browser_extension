@@ -1,0 +1,86 @@
+import * as React from "react";
+import { useState } from 'react';
+import "./App.css";
+import { Message } from "./types";
+
+
+
+
+
+const App = () => {
+
+  const [url, setUrl] = useState('http://localhost:4001');
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
+
+  chrome.storage.sync.get(['urtweet_url'], function(result) {
+    if (result.urtweet_url.set){
+      setSaved(true);
+      setUrl(result.urtweet_url.url);
+    }
+  });
+
+  function saveurl(url : string){
+    const data = {urtweet_url: {set: true, url: url}};
+    chrome.storage.sync.set(data, function() {
+      const m : Message = {type: "SAVE_URL", url: new URL(url)}
+      chrome.runtime.sendMessage(m)
+  });
+  }
+
+  function reset(){
+    chrome.storage.sync.set({urtweet_url: {url: "", set: false}}, function(){
+      const m : Message = {type: "CLEAR_URL"}
+      chrome.runtime.sendMessage(m)
+    });
+    setSaved(false);
+    
+  }
+
+
+  async function handleClick(event: React.MouseEvent) : Promise<any>{
+    try {
+      const res = await validate(url);
+      if (res == "ok"){
+        saveurl(url)
+        setSaved(true);
+      }
+  } catch{
+    setError("Not a valid Urtweet instance");
+    setSaved(false);
+  }
+}
+
+  async function validate(url : string) : Promise<string> {
+    const res = await fetch(url + "/api/running");
+    console.log(res, "res")
+    const json = await res.json()
+    return await json;
+  }
+
+  if (saved){
+    return (
+      <div className="App">
+        <p>Your instance is {url}</p>
+        <button onClick={reset}>Change?</button>
+      </div>
+    )
+  } else{
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src="clipart2177986.png" className="App-logo" alt="logo" />
+        <h1>
+          Ursprache Helper
+        </h1>
+        <label htmlFor="url">URL</label>
+        <input onChange={e => setUrl(e.target.value)} value={url} name="url" type="text" autoComplete="off" />
+        <button onClick={handleClick}>Save</button>
+        <p>{error}</p>
+      </header>
+    </div>
+  );
+  }
+};
+
+export default App;
